@@ -3,11 +3,6 @@ using eCommerceCore.DTO;
 using eCommerceCore.Entities;
 using eCommerceCore.RepositoryContracts;
 using eCommerceCore.ServiceContracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace eCommerceCore.Services
 {

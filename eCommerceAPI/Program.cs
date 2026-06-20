@@ -2,7 +2,6 @@ using eCommerceAPI.Middleware;
 using eCommerceInfrastructure.DependencyInjection;
 using eCommerceCore.DependencyInjection;
 using eCommerceCore.Mapper;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

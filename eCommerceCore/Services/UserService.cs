@@ -30,15 +30,7 @@ namespace eCommerceCore.Services
             }
 
             return _mapper.Map<AuthenticationResponse>(user) with { Sucess = true, Token = "token" };
-            return new AuthenticationResponse()
-            {
-                Id = 1,
-                Email = loginRequest.Email,
-                Name = "Njabulo Majenje",
-                Gender = 'M',
-                Sucess = true,
-                Token = "token"
-            };
+    
         }
 
         public async Task<AuthenticationResponse?> RegisterUser(RegisterUserDTO registerRequest)
@@ -59,15 +51,7 @@ namespace eCommerceCore.Services
 
             return _mapper.Map<AuthenticationResponse>(user) with { Sucess = true, Token = "token" };
 
-            return new AuthenticationResponse()
-            {
-                Id = 1,
-                Email = user.Email,
-                Name = "Njabulo Majenje",
-                Gender = 'M',
-                Sucess = true,
-                Token = "token"
-            };
+     
         }
     }
 }

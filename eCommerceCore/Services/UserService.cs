@@ -1,4 +1,5 @@
-﻿using eCommerceCore.DTO;
+﻿using AutoMapper;
+using eCommerceCore.DTO;
 using eCommerceCore.Entities;
 using eCommerceCore.RepositoryContracts;
 using eCommerceCore.ServiceContracts;
@@ -13,9 +14,11 @@ namespace eCommerceCore.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly IMapper _mapper;
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
         public async Task<AuthenticationResponse?> Login(LoginDTO loginRequest)
         {
@@ -25,6 +28,8 @@ namespace eCommerceCore.Services
             {
                 return null;
             }
+
+            return _mapper.Map<AuthenticationResponse>(user) with { Sucess = true, Token = "token" };
             return new AuthenticationResponse()
             {
                 Id = 1,
@@ -51,6 +56,8 @@ namespace eCommerceCore.Services
             if (regsiteredUser == null) {
             return null;
             }
+
+            return _mapper.Map<AuthenticationResponse>(user) with { Sucess = true, Token = "token" };
 
             return new AuthenticationResponse()
             {

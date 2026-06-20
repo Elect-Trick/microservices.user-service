@@ -1,4 +1,5 @@
 ﻿using eCommerceCore.RepositoryContracts;
+using eCommerceInfrastructure.DbContext;
 using eCommerceInfrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,6 +16,7 @@ public static class DependencyInjection
     {//Allows us to inject services to the IoC container, Infrastructure services often include data access, caching and other low level components.
      //TODO
      services.AddTransient<IUserRepository,UserRepository>();
+        services.AddTransient<DapperDbContext>();
         return services;
 
 

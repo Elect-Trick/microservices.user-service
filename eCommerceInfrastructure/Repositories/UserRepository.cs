@@ -1,26 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Dapper;
 using eCommerceCore.Entities;
 using eCommerceCore.RepositoryContracts;
+using eCommerceInfrastructure.DbContext;
 
 namespace eCommerceInfrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        private readonly DapperDbContext _dapperDbContext;
+        public UserRepository(DapperDbContext dapperDbContext)
+        {
+            _dapperDbContext = dapperDbContext;
+        }
         public async Task<ApplicationUser?> AddUser(ApplicationUser user)
         {
-            return new ApplicationUser()
-            { Id = 1, Email = "username", Password = "password", Name = "Njabulo" };
+
+
+            string query = "insert into public.user(name,email,password,gender) Values(@Name,@Email,@Password,@Gender)";
+            int rowsAffected = await _dapperDbContext.DbConnection.ExecuteAsync(query,user);
+
+            if (rowsAffected > 0) {
+
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<ApplicationUser?> GetUserByEmailAndPassword(string? username, string? password)
         {
-           
-            return new ApplicationUser()
-            { Id = 1, Email = username, Password = password ,Name = "Njabulo", Gender= 'M'};
+
+            string query = "select * from public.user where email = @username and password = @password";
+            var paramaters = new {
+            Password = password,
+            Username = username};
+           ApplicationUser? result = await _dapperDbContext.DbConnection.QueryFirstAsync<ApplicationUser>(query, paramaters);
+
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
+       
             
         }
     }

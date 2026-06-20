@@ -3,6 +3,7 @@ using eCommerceCore.Entities;
 using eCommerceCore.ServiceContracts;
 using eCommerceCore.Validator;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerceAPI.Controller
@@ -13,15 +14,31 @@ namespace eCommerceAPI.Controller
     {
         private readonly IUserService _userService;
         private readonly IValidator<LoginDTO> _loginValidator;
-        public UserController(IUserService userService, IValidator<LoginDTO> loginValidator)
+        private readonly IValidator<RegisterUserDTO> _registrationValidator;
+        public UserController(IUserService userService, IValidator<LoginDTO> loginValidator, IValidator<RegisterUserDTO> registrationValidator)
         {
             _userService = userService;
             _loginValidator = loginValidator;
+            _registrationValidator = registrationValidator;
         }
 
         [HttpPost("register")]  
         public async Task<ActionResult> RegisterUser(RegisterUserDTO registerRequest)
         {
+
+
+            var validationResult = await _registrationValidator.ValidateAsync(registerRequest);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new
+                {
+                    Title = "Validation failed",
+                    Status = 400,
+                    Errors = validationResult.Errors
+                                .Select(e => e.ErrorMessage)
+                                .ToList()
+                });
+            }
 
             if (registerRequest == null)
             {

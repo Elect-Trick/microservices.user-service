@@ -57,6 +57,11 @@ namespace eCommerceAPI.Controller
 
         }
 
+        /// <summary>
+        /// Enpoint for login a user in.
+        /// </summary>
+        /// <param name="loginRequest"></param>
+        /// <returns></returns>
         [HttpPost("login")]  
         public async Task<ActionResult> LoginUser(LoginDTO loginRequest)
         {
@@ -83,7 +88,7 @@ namespace eCommerceAPI.Controller
 
             if (response == null || response.Sucess == false) {
 
-                return BadRequest(loginRequest);
+                return Unauthorized(loginRequest);
             }
             
             return Ok(response);

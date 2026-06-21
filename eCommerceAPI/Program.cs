@@ -17,7 +17,21 @@ cfg.AddMaps(typeof(ApplicationUserMappingProfile).Assembly);
 builder.Services.AddValidatorsFromAssemblyContaining<LoginValidator>();
 
 //Add Controllers
+
 builder.Services.AddControllers();
+//Swagger config
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("https://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 app.UseExceptionHandlingMiddleware();
@@ -25,6 +39,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseCors();
 
 app.Run();

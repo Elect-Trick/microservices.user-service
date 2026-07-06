@@ -8,16 +8,11 @@ namespace eCommerceCore.Entities
 {
     public record AuthenticationResponse
     {
-        public int Id { get; set; }
-        public string? Email { get; set; }
-        public string? Name { get; set; }
-        public char? Gender { get; set; }
-        public string? Token { get; set; }
-        public bool? Sucess { get; set; }
-
-        public AuthenticationResponse()
-        {
-            
-        }
+        public int Id { get; init; }
+        public string? Email { get; init; }
+        public string? Name { get; init; }
+        public char? Gender { get; init; }
+        public string? Token { get; init; }
+        public bool? Success { get; init; }
     }
 }

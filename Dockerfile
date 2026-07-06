@@ -5,24 +5,25 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
 EXPOSE 5000
+EXPOSE 5001
 
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["eCommerceAPI.csproj", "eCommerceAPI/"]
-COPY ["eCommerceCore.csproj", "eCommerceCore/"]
-COPY ["eCommerceInfrastructure.csproj", "eCommerceInfrastructure/"]
-RUN dotnet restore "./eCommerceAPI.csproj"
+COPY ["eCommerceAPI/eCommerceAPI.csproj", "eCommerceAPI/"]
+COPY ["eCommerceCore/eCommerceCore.csproj", "eCommerceCore/"]
+COPY ["eCommerceInfrastructure/eCommerceInfrastructure.csproj", "eCommerceInfrastructure/"]
+RUN dotnet restore "eCommerceAPI/eCommerceAPI.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./eCommerceAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "eCommerceAPI/eCommerceAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./eCommerceAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "eCommerceAPI/eCommerceAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final

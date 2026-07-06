@@ -12,7 +12,7 @@ namespace eCommerceCore.Mapper
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(source => source.Email))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(source => source.Name))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(source => source.Gender))
-                .ForMember(dest => dest.Sucess, opt => opt.Ignore());
+                .ForMember(dest => dest.Success, opt => opt.Ignore());
         }
     }
 }

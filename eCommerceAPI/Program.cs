@@ -6,7 +6,7 @@ using FluentValidation;
 using eCommerceCore.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
-
+//test
 //Inject infrastructure services.
 builder.Services.AddInfrastructure();
 builder.Services.AddCoreLayer();

@@ -24,7 +24,7 @@ namespace eCommerceCore.Services
                 return null;
             }
 
-            return _mapper.Map<AuthenticationResponse>(user) with { Sucess = true, Token = "token" };
+            return _mapper.Map<AuthenticationResponse>(user) with { Success = true, Token = "token" };
     
         }
 
@@ -47,7 +47,7 @@ namespace eCommerceCore.Services
             return null;
             }
 
-            return _mapper.Map<AuthenticationResponse>(user) with { Sucess = true, Token = "token" };
+            return _mapper.Map<AuthenticationResponse>(user) with { Success = true, Token = "token" };
 
      
         }

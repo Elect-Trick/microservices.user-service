@@ -48,7 +48,7 @@ namespace eCommerceAPI.Controller
 
             AuthenticationResponse? response = await _userService.RegisterUser(registerRequest);
 
-            if (response == null || response.Sucess == false) {
+            if (response == null || response.Success == false) {
 
                 return BadRequest(registerRequest);
             }
@@ -70,6 +70,7 @@ namespace eCommerceAPI.Controller
             var validationResult = await _loginValidator.ValidateAsync(loginRequest);
             if (!validationResult.IsValid)
             {
+
                 return BadRequest(new
                 {
                     Title = "Validation failed",
@@ -79,15 +80,16 @@ namespace eCommerceAPI.Controller
                                 .ToList()
                 });
             }
-
-                if (loginRequest == null)
+            
+            if(loginRequest == null)
             {
-                return BadRequest("Invalid Login data passed");
+                return Unauthorized(loginRequest);
+
             }
 
             AuthenticationResponse? response = await _userService.Login(loginRequest);
 
-            if (response == null || response.Sucess == false) {
+            if (response == null || response.Success == false) {
 
                 return Unauthorized(loginRequest);
             }

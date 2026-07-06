@@ -37,7 +37,7 @@ namespace eCommerceInfrastructure.Repositories
             var paramaters = new {
             Password = password,
             Username = username};
-           ApplicationUser? result = await _dapperDbContext.DbConnection.QueryFirstAsync<ApplicationUser>(query, paramaters);
+           ApplicationUser? result = await _dapperDbContext.DbConnection.QueryFirstOrDefaultAsync<ApplicationUser>(query, paramaters);
 
             if (result == null)
             {

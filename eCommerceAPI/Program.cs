@@ -5,9 +5,8 @@ using eCommerceCore.Mapper;
 using FluentValidation;
 using eCommerceCore.Validator;
 
-var builder = WebApplication.CreateBuilder(args);
-//test
 //Inject infrastructure services.
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure();
 builder.Services.AddCoreLayer();
 builder.Services.AddAutoMapper(cfg => {
@@ -22,7 +21,6 @@ builder.Services.AddControllers();
 //Swagger config
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>

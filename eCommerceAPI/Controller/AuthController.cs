@@ -46,9 +46,9 @@ namespace eCommerceAPI.Controller
             }
 
 
-            AuthenticationResponse? response = await _userService.RegisterUser(registerRequest);
+            ApplicationUser? response = await _userService.RegisterUser(registerRequest);
 
-            if (response == null || response.Success == false) {
+            if (response == null ) {
 
                 return BadRequest(registerRequest);
             }
@@ -91,7 +91,7 @@ namespace eCommerceAPI.Controller
 
             if (response == null || response.Success == false) {
 
-                return Unauthorized(loginRequest);
+                return Unauthorized("Failed to login");
             }
             
             return Ok(response);

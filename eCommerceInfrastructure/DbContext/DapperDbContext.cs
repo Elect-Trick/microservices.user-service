@@ -15,7 +15,7 @@ namespace eCommerceInfrastructure.DbContext
             _configuration = configuration;
             string connectionStringTemplate = _configuration.GetConnectionString("PostgresConn")!;
             string connectionString = connectionStringTemplate.Replace("$POSTGRES_HOST",
-                Environment.GetEnvironmentVariable("POSTGRES_HOST")).Replace("$POSTGRES_PASSWORD", Environment.GetEnvironmentVariable("POSTGRES_PASSWORD"));
+                Environment.GetEnvironmentVariable("POSTGRES_HOST")?? "localhost").Replace("$POSTGRES_PASSWORD", Environment.GetEnvironmentVariable("POSTGRES_PASSWORD")?? "coffee");
            _connection =  new NpgsqlConnection(connectionString);
 
         }

@@ -15,19 +15,11 @@ namespace eCommerceInfrastructure.Repositories
         }
         public async Task<ApplicationUser?> AddUser(ApplicationUser user)
         {
+            
+            string query = "insert into public.user(name,email,password,gender) Values(@Name,@Email,@Password,@Gender)RETURNING *;";
+            ApplicationUser? newUser = await _dapperDbContext.DbConnection.QuerySingleOrDefaultAsync<ApplicationUser?>(query,user);
 
-
-            string query = "insert into public.user(name,email,password,gender) Values(@Name,@Email,@Password,@Gender)";
-            int rowsAffected = await _dapperDbContext.DbConnection.ExecuteAsync(query,user);
-
-            if (rowsAffected > 0) {
-
-                return user;
-            }
-            else
-            {
-                return null;
-            }
+            return newUser;
         }
 
         public  async Task<ApplicationUser?> GetUserByUserId(Guid id)
@@ -35,7 +27,7 @@ namespace eCommerceInfrastructure.Repositories
             string query = "select * from public.user where id = @id";
             var parameters = new { Id = id };
             ApplicationUser? applicationUser =
-                await _dapperDbContext.DbConnection.QueryFirstOrDefaultAsync(query, parameters);
+                await _dapperDbContext.DbConnection.QueryFirstOrDefaultAsync<ApplicationUser?>(query, parameters);
             return applicationUser;
         }
 

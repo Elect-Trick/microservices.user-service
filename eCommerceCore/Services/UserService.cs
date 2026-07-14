@@ -28,26 +28,17 @@ namespace eCommerceCore.Services
     
         }
 
-        public async Task<AuthenticationResponse?> RegisterUser(RegisterUserDTO registerRequest)
+        public async Task<ApplicationUser?> RegisterUser(RegisterUserDTO registerRequest)
         {
-            
-            
-            ApplicationUser user = new ApplicationUser()
-            {
-                Email = registerRequest.Email,
-                Name = registerRequest.Name,
-                Gender = registerRequest.Gender,
-                Password = registerRequest.Password,
-
-            };
-
+            ApplicationUser user = _mapper.Map<ApplicationUser>(registerRequest);
+    
             ApplicationUser? regsiteredUser = await _userRepository.AddUser(user);
 
             if (regsiteredUser == null) {
             return null;
             }
 
-            return _mapper.Map<AuthenticationResponse>(user) with { Success = true, Token = "token" };
+            return regsiteredUser;
 
      
         }

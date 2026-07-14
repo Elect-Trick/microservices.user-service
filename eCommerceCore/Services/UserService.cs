@@ -51,5 +51,11 @@ namespace eCommerceCore.Services
 
      
         }
+
+        public async Task<ApplicationUser?> GetUserByUserId(Guid id)
+        {
+            ApplicationUser? user = await _userRepository.GetUserByUserId(id);
+            return user;
+        }
     }
 }

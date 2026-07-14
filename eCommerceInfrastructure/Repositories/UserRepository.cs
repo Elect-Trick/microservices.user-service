@@ -30,6 +30,15 @@ namespace eCommerceInfrastructure.Repositories
             }
         }
 
+        public  async Task<ApplicationUser?> GetUserByUserId(Guid id)
+        {
+            string query = "select * from public.user where id = @id";
+            var parameters = new { Id = id };
+            ApplicationUser? applicationUser =
+                await _dapperDbContext.DbConnection.QueryFirstOrDefaultAsync(query, parameters);
+            return applicationUser;
+        }
+
         public async Task<ApplicationUser?> GetUserByEmailAndPassword(string? username, string? password)
         {
 

@@ -14,6 +14,7 @@ namespace eCommerceCore.ServiceContracts
         /// <returns></returns>
         Task<AuthenticationResponse?> Login(LoginDTO loginRequest);
         Task<AuthenticationResponse?> RegisterUser(RegisterUserDTO registerRequest);
+        Task<ApplicationUser?> GetUserByUserId(Guid id);
 
     }
 }
